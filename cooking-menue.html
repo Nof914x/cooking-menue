@@ -50,8 +50,10 @@
     <script>
         // Function to handle messages from FiveM client
         window.addEventListener('message', function(event) {
+            console.log("Received message from FiveM client:", event.data);
             // Check if the message is from FiveM and has the "openMenu" key
             if (event.data && event.data.openMenu) {
+                console.log("Opening cooking menu UI");
                 // Display the cooking menu UI
                 document.querySelector('.container').style.display = 'block';
                 // Set the URL for the iframe (optional)
