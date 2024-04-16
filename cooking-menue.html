@@ -41,16 +41,28 @@
 <body>
     <div class="container">
         <h2>Cooking Menu</h2>
+        <!-- Buttons for cooking recipes -->
         <button class="recipe-button" onclick="cookRecipe('Pasta')">Cook Pasta</button>
         <button class="recipe-button" onclick="cookRecipe('Salad')">Cook Salad</button>
         <!-- Add more buttons for additional recipes -->
     </div>
 
     <script>
+        // Function to handle messages from FiveM client
+        window.addEventListener('message', function(event) {
+            // Check if the message is from FiveM and has the "openMenu" key
+            if (event.data && event.data.openMenu) {
+                // Display the cooking menu UI
+                document.querySelector('.container').style.display = 'block';
+                // Set the URL for the iframe (optional)
+                document.querySelector('iframe').src = event.data.url;
+            }
+        });
+
         // Function to trigger cooking a recipe
         function cookRecipe(recipeName) {
-            // Send a request to the server to cook the selected recipe
-            fetch(`http://<YOUR_SERVER_IP>/cooking/prepareRecipe?recipe=${recipeName}`, {
+            // Send a message back to the FiveM client with the selected recipe
+            fetch(`http://localhost/cooking/prepareRecipe?recipe=${recipeName}`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
