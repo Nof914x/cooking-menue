@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Menu</title>
+    <style>
+        /* Add custom styles for your UI here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .recipe-button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .recipe-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cooking Menu</h2>
+        <button class="recipe-button" onclick="cookRecipe('Pasta')">Cook Pasta</button>
+        <button class="recipe-button" onclick="cookRecipe('Salad')">Cook Salad</button>
+        <!-- Add more buttons for additional recipes -->
+    </div>
+
+    <script>
+        // Function to trigger cooking a recipe
+        function cookRecipe(recipeName) {
+            // Send a request to the server to cook the selected recipe
+            fetch(`http://<YOUR_SERVER_IP>/cooking/prepareRecipe?recipe=${recipeName}`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Display a success message
+                    alert(`You have cooked ${recipeName} successfully!`);
+                } else {
+                    // Display an error message
+                    alert(`Failed to cook ${recipeName}. Please try again later.`);
+                }
+            })
+            .catch(error => {
+                // Display an error message
+                alert(`An error occurred: ${error}`);
+            });
+        }
+    </script>
+</body>
+</html>
